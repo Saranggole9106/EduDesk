@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - EduDesk</title>
+    <link rel="stylesheet" href="../css/style-new.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar - Exact Match -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h2>EduDesk</h2>
+                <p>Admin Portal</p>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" onclick="showSection('dashboard')">
+                    <i class="fas fa-tachometer-alt"></i>
+                    Dashboard
+                </a>
+                <a href="#" class="nav-item" onclick="showSection('analytics')">
+                    <i class="fas fa-chart-line"></i>
+                    Analytics
+                </a>
+                <a href="#" class="nav-item" onclick="showSection('all-tickets')">
+                    <i class="fas fa-list"></i>
+                    All Tickets
+                </a>
+                <a href="#" class="nav-item" onclick="showSection('user-management')">
+                    <i class="fas fa-users-cog"></i>
+                    User Management
+                </a>
+                <a href="#" class="nav-item" onclick="showSection('departments')">
+                    <i class="fas fa-building"></i>
+                    Departments
+                </a>
+                <a href="#" class="nav-item" onclick="showSection('system-settings')">
+                    <i class="fas fa-cogs"></i>
+                    System Settings
+                </a>
+                <a href="#" class="nav-item" onclick="showSection('reports')">
+                    <i class="fas fa-file-alt"></i>
+                    Reports
+                </a>
+                <a href="#" class="nav-item" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </a>
+            </nav>
+            
+            <!-- Decorative illustration placeholder -->
+            <div style="position: absolute; bottom: 20px; left: 20px; right: 20px; height: 120px; background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05)); border-radius: 12px; opacity: 0.7;"></div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Top Header -->
+            <div class="top-header">
+                <div class="welcome-section">
+                    <h1>Admin Dashboard</h1>
+                    <p style="font-size: 14px; color: #666; margin-top: 5px;">System overview and management</p>
+                </div>
+                
+                <div class="header-actions">
+                    <div class="search-container">
+                        <i class="fas fa-search"></i>
+                        <input type="text" class="search-input" placeholder="Search system...">
+                    </div>
+                    
+                    <div class="header-icons">
+                        <button class="icon-btn">
+                            <i class="fas fa-bell"></i>
+                            <span style="position: absolute; top: 5px; right: 5px; background: #FF6B6B; color: white; border-radius: 50%; width: 16px; height: 16px; font-size: 10px; display: flex; align-items: center; justify-content: center;">3</span>
+                        </button>
+                        <button class="icon-btn">
+                            <i class="fas fa-user"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Dashboard Section -->
+            <div id="dashboard-section" class="content-section active">
+                <!-- Statistics Cards Row -->
+                <div class="stats-row">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #FF6B6B;">
+                            <i class="fas fa-ticket-alt"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>1,247</h3>
+                            <p>Total Tickets</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #4FACFE;">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>3,456</h3>
+                            <p>Active Users</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #4CAF50;">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>94.2%</h3>
+                            <p>Resolution Rate</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #FFA726;">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>2.4h</h3>
+                            <p>Avg Response Time</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Main Dashboard Grid -->
+                <div class="dashboard-grid">
+                    <!-- Left Column -->
+                    <div class="left-column">
+                        <!-- System Overview -->
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h3>System Overview</h3>
+                                <select style="border: none; background: none; font-size: 12px; color: #666; padding: 4px 8px; border-radius: 4px; background: #f8f9fa;">
+                                    <option>Last 7 days</option>
+                                    <option>Last 30 days</option>
+                                    <option>Last 90 days</option>
+                                </select>
+                            </div>
+                            <div class="performance-chart">
+                                <div style="height: 200px; display: flex; align-items: center; justify-content: center; background: #f8f9fa; border-radius: 8px; margin: 20px 0;">
+                                    <div style="text-align: center; color: #666;">
+                                        <i class="fas fa-chart-line" style="font-size: 48px; margin-bottom: 10px; opacity: 0.3;"></i>
+                                        <p>System Performance Chart</p>
+                                        <p style="font-size: 12px;">Interactive chart showing system metrics</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Recent System Activity -->
+                        <div class="dashboard-card" style="margin-top: 20px;">
+                            <div class="card-header">
+                                <h3>Recent System Activity</h3>
+                            </div>
+                            <div class="activities-container">
+                                <div class="activity-item">
+                                    <div style="display: flex; gap: 12px;">
+                                        <div style="width: 8px; height: 8px; background: #4CAF50; border-radius: 50%; margin-top: 6px; flex-shrink: 0;"></div>
+                                        <div>
+                                            <div class="activity-description"><strong>New user registered:</strong> John Doe (Student)</div>
+                                            <div class="activity-date">5 minutes ago</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="activity-item">
+                                    <div style="display: flex; gap: 12px;">
+                                        <div style="width: 8px; height: 8px; background: #4FACFE; border-radius: 50%; margin-top: 6px; flex-shrink: 0;"></div>
+                                        <div>
+                                            <div class="activity-description"><strong>Ticket resolved:</strong> #TK1245 by Sarah Johnson</div>
+                                            <div class="activity-date">12 minutes ago</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="activity-item">
+                                    <div style="display: flex; gap: 12px;">
+                                        <div style="width: 8px; height: 8px; background: #FFA726; border-radius: 50%; margin-top: 6px; flex-shrink: 0;"></div>
+                                        <div>
+                                            <div class="activity-description"><strong>System alert:</strong> High ticket volume in IT Support</div>
+                                            <div class="activity-date">25 minutes ago</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Right Column -->
+                    <div class="right-column">
+                        <!-- Ticket Status -->
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h3>Ticket Status</h3>
+                            </div>
+                            <div class="performance-chart">
+                                <div style="display: flex; justify-content: center; margin: 20px 0;">
+                                    <div style="width: 150px; height: 150px; border-radius: 50%; background: conic-gradient(#FF6B6B 0deg 90deg, #FFA726 90deg 135deg, #4FACFE 135deg 270deg, #4CAF50 270deg 360deg); position: relative;">
+                                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80px; height: 80px; background: white; border-radius: 50%;"></div>
+                                    </div>
+                                </div>
+                                <div class="chart-legend">
+                                    <div class="legend-item">
+                                        <div class="legend-dot" style="background: #FF6B6B;"></div>
+                                        <span>Pending</span>
+                                        <span style="margin-left: auto;">25</span>
+                                    </div>
+                                    <div class="legend-item">
+                                        <div class="legend-dot" style="background: #FFA726;"></div>
+                                        <span>In Progress</span>
+                                        <span style="margin-left: auto;">35</span>
+                                    </div>
+                                    <div class="legend-item">
+                                        <div class="legend-dot" style="background: #4FACFE;"></div>
+                                        <span>Resolved</span>
+                                        <span style="margin-left: auto;">120</span>
+                                    </div>
+                                    <div class="legend-item">
+                                        <div class="legend-dot" style="background: #4CAF50;"></div>
+                                        <span>Closed</span>
+                                        <span style="margin-left: auto;">67</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Department Performance -->
+                        <div class="dashboard-card" style="margin-top: 20px;">
+                            <div class="card-header">
+                                <h3>Department Performance</h3>
+                            </div>
+                            <div class="card-content">
+                                <div style="display: flex; flex-direction: column; gap: 15px;">
+                                    <div>
+                                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                            <span style="font-size: 13px; color: #333; font-weight: 500;">Student Services</span>
+                                            <div style="text-align: right;">
+                                                <span style="font-size: 12px; color: #4FACFE; font-weight: 600;">98% resolved</span>
+                                                <div style="font-size: 11px; color: #999;">1.2h avg</div>
+                                            </div>
+                                        </div>
+                                        <div style="font-size: 12px; color: #666; margin-bottom: 5px;">15 staff members</div>
+                                    </div>
+                                    
+                                    <div>
+                                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                            <span style="font-size: 13px; color: #333; font-weight: 500;">IT Support</span>
+                                            <div style="text-align: right;">
+                                                <span style="font-size: 12px; color: #4FACFE; font-weight: 600;">92% resolved</span>
+                                                <div style="font-size: 11px; color: #999;">3.1h avg</div>
+                                            </div>
+                                        </div>
+                                        <div style="font-size: 12px; color: #666; margin-bottom: 5px;">8 staff members</div>
+                                    </div>
+                                    
+                                    <div>
+                                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                            <span style="font-size: 13px; color: #333; font-weight: 500;">Admissions</span>
+                                            <div style="text-align: right;">
+                                                <span style="font-size: 12px; color: #4FACFE; font-weight: 600;">96% resolved</span>
+                                                <div style="font-size: 11px; color: #999;">2.8h avg</div>
+                                            </div>
+                                        </div>
+                                        <div style="font-size: 12px; color: #666; margin-bottom: 5px;">12 staff members</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Schools Fees Structure -->
+                        <div class="dashboard-card" style="margin-top: 20px;">
+                            <div class="card-header">
+                                <h3>Schools Fees Structure</h3>
+                            </div>
+                            <div class="fees-structure">
+                                <div class="chart-subtitle">All the data in percentage (%)</div>
+                                <div style="display: flex; align-items: end; height: 80px; margin: 15px 0; gap: 10px;">
+                                    <div style="flex: 1; background: #6C5CE7; height: 60%; border-radius: 4px 4px 0 0;"></div>
+                                </div>
+                                <div class="chart-legend">
+                                    <div class="legend-item">
+                                        <div class="legend-dot" style="background: #6C5CE7;"></div>
+                                        <span>Govt. School</span>
+                                        <span style="margin-left: auto;">100</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Other sections remain hidden by default -->
+            <div id="analytics-section" class="content-section" style="display: none;">
+                <!-- Analytics content -->
+            </div>
+            
+            <div id="all-tickets-section" class="content-section" style="display: none;">
+                <!-- All Tickets content -->
+            </div>
+            
+            <div id="user-management-section" class="content-section" style="display: none;">
+                <!-- User Management content -->
+            </div>
+            
+            <div id="departments-section" class="content-section" style="display: none;">
+                <!-- Departments content -->
+            </div>
+            
+            <div id="system-settings-section" class="content-section" style="display: none;">
+                <!-- System Settings content -->
+            </div>
+            
+            <div id="reports-section" class="content-section" style="display: none;">
+                <!-- Reports content -->
+            </div>
+        </div>
+    </div>
+    
+    <script src="../js/main.js"></script>
+    <script src="../js/admin.js"></script>
+</body>
+</html>
+

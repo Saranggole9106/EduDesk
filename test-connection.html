@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supabase Connection Test</title>
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <h1>Supabase Connection Test</h1>
+    <div id="status">Testing connection...</div>
+    <div id="realtime-status">Checking real-time...</div>
+    
+    <script type="module" src="js/test-connection.js"></script>
+    <script>
+        // Listen for console logs and display them on the page
+        const originalLog = console.log;
+        const originalError = console.error;
+        
+        console.log = function(message) {
+            document.getElementById('status').innerHTML += '<p style="color: green;">✓ ' + message + '</p>';
+            originalLog.apply(console, arguments);
+        };
+        
+        console.error = function(message) {
+            document.getElementById('status').innerHTML += '<p style="color: red;">✗ ' + message + '</p>';
+            originalError.apply(console, arguments);
+        };
+    </script>
+</body>
+</html> 

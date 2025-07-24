@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduDesk - Student Helpdesk System</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="role-selection">
+            <div class="header">
+                <div class="logo">
+                    <i class="fas fa-graduation-cap"></i>
+                    <h1>EduDesk</h1>
+                </div>
+                <p class="subtitle">Student Helpdesk System</p>
+            </div>
+            
+            <div class="role-cards">
+                <div class="role-card" onclick="selectRole('student')">
+                    <div class="role-icon">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <h3>Student</h3>
+                    <p>Submit tickets, track issues, and get help</p>
+                </div>
+                
+                <div class="role-card" onclick="selectRole('staff')">
+                    <div class="role-icon">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <h3>Staff</h3>
+                    <p>Manage tickets, respond to queries, and assist students</p>
+                </div>
+                
+                <div class="role-card" onclick="selectRole('admin')">
+                    <div class="role-icon">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <h3>Admin</h3>
+                    <p>Oversee system, manage users, and view analytics</p>
+                </div>
+            </div>
+            
+            <div class="footer">
+                <p>&copy; 2024 EduDesk. All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+    
+    <script type="module">
+        import { BASE_URL } from './js/config.js';
+        
+        window.selectRole = function(role) {
+            localStorage.setItem('selectedRole', role);
+            
+            const roleCards = document.querySelectorAll('.role-card');
+            roleCards.forEach(card => card.style.transform = 'scale(0.95)');
+            
+            setTimeout(() => {
+                window.location.href = `${BASE_URL}/pages/login.html?role=${role}`;
+            }, 200);
+        };
+    </script>
+</body>
+</html>
+

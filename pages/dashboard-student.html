@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard - EduDesk</title>
+    <link rel="stylesheet" href="../css/style-new.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar - Exact Match -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h2>EduDesk</h2>
+                <p>Student Portal</p>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" onclick="showSection('dashboard')">
+                    <i class="fas fa-tachometer-alt"></i>
+                    Dashboard
+                </a>
+                <a href="#" class="nav-item" onclick="showSection('tickets')">
+                    <i class="fas fa-ticket-alt"></i>
+                    My Tickets
+                </a>
+                <a href="#" class="nav-item" onclick="showSection('create-ticket')">
+                    <i class="fas fa-plus-circle"></i>
+                    Create Ticket
+                </a>
+                <a href="#" class="nav-item" onclick="showSection('faq')">
+                    <i class="fas fa-question-circle"></i>
+                    FAQ
+                </a>
+                <a href="#" class="nav-item" onclick="showSection('profile')">
+                    <i class="fas fa-user"></i>
+                    Profile
+                </a>
+                <a href="#" class="nav-item" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </a>
+            </nav>
+            
+            <!-- Decorative illustration placeholder -->
+            <div style="position: absolute; bottom: 20px; left: 20px; right: 20px; height: 120px; background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05)); border-radius: 12px; opacity: 0.7;"></div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Top Header -->
+            <div class="top-header">
+                <div class="welcome-section">
+                    <h1>Welcome to EduDesk</h1>
+                    <p style="font-size: 14px; color: #666; margin-top: 5px;">Manage your queries and track ticket status</p>
+                </div>
+                
+                <div class="header-actions">
+                    <div class="search-container">
+                        <i class="fas fa-search"></i>
+                        <input type="text" class="search-input" placeholder="Search tickets...">
+                    </div>
+                    
+                    <div class="header-icons">
+                        <button class="icon-btn">
+                            <i class="fas fa-bell"></i>
+                            <span style="position: absolute; top: 5px; right: 5px; background: #FF6B6B; color: white; border-radius: 50%; width: 16px; height: 16px; font-size: 10px; display: flex; align-items: center; justify-content: center;">3</span>
+                        </button>
+                        <button class="icon-btn">
+                            <i class="fas fa-user"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Dashboard Section -->
+            <div id="dashboard-section" class="content-section active">
+                <!-- Statistics Cards Row -->
+                <div class="stats-row">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #FF6B6B;">
+                            <i class="fas fa-ticket-alt"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>12</h3>
+                            <p>Total Tickets</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #FFA726;">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>3</h3>
+                            <p>Pending</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #4FACFE;">
+                            <i class="fas fa-spinner"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>2</h3>
+                            <p>In Progress</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #4CAF50;">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>7</h3>
+                            <p>Resolved</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Main Dashboard Grid -->
+                <div class="dashboard-grid">
+                    <!-- Left Column -->
+                    <div class="left-column">
+                        <!-- Recent Tickets -->
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h3>Recent Tickets</h3>
+                                <a href="#" class="view-all-btn" onclick="showSection('tickets')">View All</a>
+                            </div>
+                            <div class="card-content">
+                                <div class="ticket-item" style="padding: 15px 0; border-bottom: 1px solid #f0f0f0;">
+                                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+                                        <h4 style="font-size: 14px; font-weight: 600; color: #333; margin: 0;">#TK001 - Fee Payment Issue</h4>
+                                        <span style="background: #FFA726; color: white; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 600;">PENDING</span>
+                                    </div>
+                                    <p style="font-size: 13px; color: #666; margin: 0 0 5px 0;">Unable to process online fee payment for this semester.</p>
+                                    <span style="font-size: 12px; color: #999;">2 hours ago</span>
+                                </div>
+                                
+                                <div class="ticket-item" style="padding: 15px 0; border-bottom: 1px solid #f0f0f0;">
+                                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+                                        <h4 style="font-size: 14px; font-weight: 600; color: #333; margin: 0;">#TK002 - Exam Hall Ticket</h4>
+                                        <span style="background: #4FACFE; color: white; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 600;">IN PROGRESS</span>
+                                    </div>
+                                    <p style="font-size: 13px; color: #666; margin: 0 0 5px 0;">Cannot download hall ticket for upcoming examination.</p>
+                                    <span style="font-size: 12px; color: #999;">1 day ago</span>
+                                </div>
+                                
+                                <div class="ticket-item" style="padding: 15px 0;">
+                                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+                                        <h4 style="font-size: 14px; font-weight: 600; color: #333; margin: 0;">#TK003 - Document Verification</h4>
+                                        <span style="background: #4CAF50; color: white; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 600;">RESOLVED</span>
+                                    </div>
+                                    <p style="font-size: 13px; color: #666; margin: 0 0 5px 0;">Need help with document submission process.</p>
+                                    <span style="font-size: 12px; color: #999;">3 days ago</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Quick Actions -->
+                        <div class="dashboard-card" style="margin-top: 20px;">
+                            <div class="card-header">
+                                <h3>Quick Actions</h3>
+                            </div>
+                            <div class="card-content">
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                                    <button onclick="showSection('create-ticket')" style="padding: 20px; background: #FF6B6B; color: white; border: none; border-radius: 12px; font-weight: 600; cursor: pointer; transition: all 0.3s ease;">
+                                        <i class="fas fa-plus" style="display: block; font-size: 24px; margin-bottom: 8px;"></i>
+                                        Create New Ticket
+                                    </button>
+                                    <button onclick="showSection('faq')" style="padding: 20px; background: #4FACFE; color: white; border: none; border-radius: 12px; font-weight: 600; cursor: pointer; transition: all 0.3s ease;">
+                                        <i class="fas fa-question-circle" style="display: block; font-size: 24px; margin-bottom: 8px;"></i>
+                                        Browse FAQ
+                                    </button>
+                                    <button style="padding: 20px; background: #FFA726; color: white; border: none; border-radius: 12px; font-weight: 600; cursor: pointer; transition: all 0.3s ease;">
+                                        <i class="fas fa-download" style="display: block; font-size: 24px; margin-bottom: 8px;"></i>
+                                        Download Forms
+                                    </button>
+                                    <button style="padding: 20px; background: #4CAF50; color: white; border: none; border-radius: 12px; font-weight: 600; cursor: pointer; transition: all 0.3s ease;">
+                                        <i class="fas fa-calendar" style="display: block; font-size: 24px; margin-bottom: 8px;"></i>
+                                        Check Schedule
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Right Column -->
+                    <div class="right-column">
+                        <!-- Latest Announcements -->
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h3>Latest Announcements</h3>
+                            </div>
+                            <div class="card-content">
+                                <div class="announcement-item" style="padding: 15px 0; border-bottom: 1px solid #f0f0f0;">
+                                    <div style="display: flex; gap: 12px;">
+                                        <div style="width: 40px; height: 40px; background: #4FACFE; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 16px; flex-shrink: 0;">
+                                            <i class="fas fa-calendar"></i>
+                                        </div>
+                                        <div>
+                                            <h4 style="font-size: 14px; font-weight: 600; color: #333; margin: 0 0 5px 0;">Exam Schedule Released</h4>
+                                            <p style="font-size: 13px; color: #666; margin: 0 0 5px 0;">The final examination schedule for this semester has been published. Please check your student portal for details.</p>
+                                            <span style="font-size: 12px; color: #999;">Today, 10:30 AM</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="announcement-item" style="padding: 15px 0;">
+                                    <div style="display: flex; gap: 12px;">
+                                        <div style="width: 40px; height: 40px; background: #FFA726; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 16px; flex-shrink: 0;">
+                                            <i class="fas fa-credit-card"></i>
+                                        </div>
+                                        <div>
+                                            <h4 style="font-size: 14px; font-weight: 600; color: #333; margin: 0 0 5px 0;">Fee Payment Deadline Extended</h4>
+                                            <p style="font-size: 13px; color: #666; margin: 0 0 5px 0;">Due to technical issues, the fee payment deadline has been extended to next Friday.</p>
+                                            <span style="font-size: 12px; color: #999;">Yesterday, 2:15 PM</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Student Performance -->
+                        <div class="dashboard-card" style="margin-top: 20px;">
+                            <div class="card-header">
+                                <h3>My Performance</h3>
+                            </div>
+                            <div class="performance-chart">
+                                <div class="chart-subtitle">Current Semester Progress</div>
+                                <div style="display: flex; flex-direction: column; gap: 15px; margin: 20px 0;">
+                                    <div>
+                                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                            <span style="font-size: 13px; color: #333;">Assignments</span>
+                                            <span style="font-size: 13px; color: #333; font-weight: 600;">85%</span>
+                                        </div>
+                                        <div style="width: 100%; height: 8px; background: #f0f0f0; border-radius: 4px;">
+                                            <div style="width: 85%; height: 100%; background: #4CAF50; border-radius: 4px;"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div>
+                                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                            <span style="font-size: 13px; color: #333;">Attendance</span>
+                                            <span style="font-size: 13px; color: #333; font-weight: 600;">92%</span>
+                                        </div>
+                                        <div style="width: 100%; height: 8px; background: #f0f0f0; border-radius: 4px;">
+                                            <div style="width: 92%; height: 100%; background: #4FACFE; border-radius: 4px;"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div>
+                                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                            <span style="font-size: 13px; color: #333;">Overall Grade</span>
+                                            <span style="font-size: 13px; color: #333; font-weight: 600;">A-</span>
+                                        </div>
+                                        <div style="width: 100%; height: 8px; background: #f0f0f0; border-radius: 4px;">
+                                            <div style="width: 88%; height: 100%; background: #FFA726; border-radius: 4px;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Other sections remain the same but hidden by default -->
+            <div id="tickets-section" class="content-section" style="display: none;">
+                <h2>My Tickets</h2>
+                <div id="my-tickets-list">
+                    <!-- Tickets will be dynamically loaded here -->
+                </div>
+            </div>
+            
+<div id="create-ticket-section" class="content-section" style="display: none;">
+                <div class="create-ticket-form">
+                    <h2>Create New Ticket</h2>
+                    <form id="ticketForm">
+                        <div class="form-group">
+                            <label for="ticketSubject">Subject</label>
+                            <input type="text" id="ticketSubject" placeholder="Enter ticket subject" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="ticketCategory">Category</label>
+                            <select id="ticketCategory" required>
+                                <option value="">Select a category</option>
+                                <option value="technical">Technical Support</option>
+                                <option value="academic">Academic Inquiry</option>
+                                <option value="financial">Financial Aid</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="ticketDescription">Description</label>
+                            <textarea id="ticketDescription" placeholder="Describe your issue in detail" rows="6" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="ticketAttachment">Attachment (Optional)</label>
+                            <input type="file" id="ticketAttachment">
+                        </div>
+                        <button type="submit" class="submit-ticket-btn">Submit Ticket</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div id="faq-section" class="content-section" style="display: none;">
+                <!-- FAQ content -->
+            </div>
+            
+            <div id="profile-section" class="content-section" style="display: none;">
+                <!-- Profile content -->
+            </div>
+        </div>
+    </div>
+    
+    <script src="../js/main.js"></script>
+    <script src="../js/dashboard-new.js"></script>
+</body>
+</html>
