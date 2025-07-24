@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="css/style.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="images/favicon.ico">
-    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 </head>
 <body>
     <div class="container">
@@ -53,25 +52,54 @@
     </div>
     
     <script type="module">
-        import { BASE_URL } from './js/config.js';
-        
+        import { supabase, BASE_URL } from './js/config.js';
+
+        // Function to handle role selection
+        function handleRoleSelection(role) {
+            // Store role in localStorage
+            localStorage.setItem('selectedRole', role);
+            
+            // Add visual feedback
+            document.querySelectorAll('.role-card').forEach(card => {
+                card.style.transform = 'scale(0.95)';
+            });
+            
+            // Navigate to login page after brief animation
+            setTimeout(() => {
+                window.location.href = `${BASE_URL}/pages/login.html?role=${role}`;
+            }, 200);
+        }
+
         // Add click event listeners to role cards
         document.querySelectorAll('.role-card').forEach(card => {
             card.addEventListener('click', function() {
-                const role = this.dataset.role;
-                localStorage.setItem('selectedRole', role);
-                
-                // Add visual feedback
-                document.querySelectorAll('.role-card').forEach(c => {
-                    c.style.transform = 'scale(0.95)';
-                });
-                
-                // Navigate to login page
-                setTimeout(() => {
-                    window.location.href = `${BASE_URL}/pages/login.html?role=${role}`;
-                }, 200);
+                const role = this.getAttribute('data-role');
+                handleRoleSelection(role);
+            });
+
+            // Add hover effect
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px)';
+            });
+
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
             });
         });
+
+        // Verify Supabase connection
+        async function checkConnection() {
+            try {
+                const { data, error } = await supabase.from('profiles').select('count');
+                if (error) throw error;
+                console.log('Successfully connected to Supabase');
+            } catch (error) {
+                console.error('Error connecting to Supabase:', error.message);
+            }
+        }
+
+        // Check connection when page loads
+        checkConnection();
     </script>
 </body>
 </html>
