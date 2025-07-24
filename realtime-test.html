@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supabase Realtime Test</title>
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .card {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .status.connected {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .status.disconnected {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        .event {
+            padding: 10px;
+            margin: 5px 0;
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+        .control-panel {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+        }
+        button {
+            padding: 10px 15px;
+            margin: 5px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #eventLog {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Supabase Realtime Test</h1>
+    
+    <div id="connectionStatus" class="status">Connecting...</div>
+    
+    <div class="control-panel">
+        <h3>Test Controls</h3>
+        <button onclick="createTestTicket()">Create Test Ticket</button>
+        <button onclick="updateRandomTicket()">Update Random Ticket</button>
+        <button onclick="createTestResponse()">Add Test Response</button>
+    </div>
+
+    <div class="card">
+        <h3>Active Subscriptions</h3>
+        <div id="subscriptions"></div>
+    </div>
+
+    <div class="card">
+        <h3>Real-time Events</h3>
+        <div id="eventLog"></div>
+    </div>
+
+    <script type="module">
+        import { supabase } from './js/config.js';
+
+        let subscriptions = [];
+        const eventLog = document.getElementById('eventLog');
+        const connectionStatus = document.getElementById('connectionStatus');
+        const subscriptionsList = document.getElementById('subscriptions');
+
+        // Update connection status
+        function updateConnectionStatus(status) {
+            connectionStatus.textContent = `Status: ${status}`;
+            connectionStatus.className = `status ${status === 'Connected' ? 'connected' : 'disconnected'}`;
+        }
+
+        // Log events
+        function logEvent(event) {
+            const eventDiv = document.createElement('div');
+            eventDiv.className = 'event';
+            eventDiv.innerHTML = `
+                <strong>${new Date().toLocaleTimeString()}</strong><br>
+                ${JSON.stringify(event, null, 2)}
+            `;
+            eventLog.prepend(eventDiv);
+        }
+
+        // Initialize real-time subscriptions
+        function initializeRealtime() {
+            // Subscribe to tickets table
+            const ticketSubscription = supabase
+                .channel('tickets-changes')
+                .on('postgres_changes', {
+                    event: '*',
+                    schema: 'public',
+                    table: 'tickets'
+                }, (payload) => {
+                    logEvent({
+                        type: 'Ticket Change',
+                        event: payload.eventType,
+                        data: payload.new
+                    });
+                })
+                .subscribe((status) => {
+                    updateConnectionStatus(status === 'SUBSCRIBED' ? 'Connected' : 'Disconnected');
+                    if (status === 'SUBSCRIBED') {
+                        subscriptions.push('Tickets Table - All Changes');
+                        updateSubscriptionsList();
+                    }
+                });
+
+            // Subscribe to ticket responses
+            const responseSubscription = supabase
+                .channel('responses-changes')
+                .on('postgres_changes', {
+                    event: '*',
+                    schema: 'public',
+                    table: 'ticket_responses'
+                }, (payload) => {
+                    logEvent({
+                        type: 'Response Change',
+                        event: payload.eventType,
+                        data: payload.new
+                    });
+                })
+                .subscribe((status) => {
+                    if (status === 'SUBSCRIBED') {
+                        subscriptions.push('Ticket Responses - All Changes');
+                        updateSubscriptionsList();
+                    }
+                });
+        }
+
+        // Update subscriptions list
+        function updateSubscriptionsList() {
+            subscriptionsList.innerHTML = subscriptions
+                .map(sub => `<div>• ${sub}</div>`)
+                .join('');
+        }
+
+        // Create test ticket
+        window.createTestTicket = async function() {
+            try {
+                const { data, error } = await supabase
+                    .from('tickets')
+                    .insert([{
+                        title: 'Test Ticket ' + new Date().toLocaleTimeString(),
+                        description: 'This is a test ticket created for real-time testing',
+                        status: 'pending',
+                        category: 'test'
+                    }])
+                    .select();
+
+                if (error) throw error;
+                logEvent({
+                    type: 'Manual Action',
+                    message: 'Created test ticket',
+                    data: data
+                });
+            } catch (error) {
+                logEvent({
+                    type: 'Error',
+                    message: 'Failed to create test ticket',
+                    error: error.message
+                });
+            }
+        };
+
+        // Update random ticket
+        window.updateRandomTicket = async function() {
+            try {
+                // Get a random ticket
+                const { data: tickets, error: fetchError } = await supabase
+                    .from('tickets')
+                    .select('id')
+                    .limit(1);
+
+                if (fetchError) throw fetchError;
+                if (!tickets.length) {
+                    logEvent({
+                        type: 'Error',
+                        message: 'No tickets found to update'
+                    });
+                    return;
+                }
+
+                // Update the ticket
+                const { data, error } = await supabase
+                    .from('tickets')
+                    .update({
+                        status: ['pending', 'in_progress', 'resolved'][Math.floor(Math.random() * 3)],
+                        updated_at: new Date().toISOString()
+                    })
+                    .eq('id', tickets[0].id)
+                    .select();
+
+                if (error) throw error;
+                logEvent({
+                    type: 'Manual Action',
+                    message: 'Updated ticket status',
+                    data: data
+                });
+            } catch (error) {
+                logEvent({
+                    type: 'Error',
+                    message: 'Failed to update ticket',
+                    error: error.message
+                });
+            }
+        };
+
+        // Create test response
+        window.createTestResponse = async function() {
+            try {
+                // Get a random ticket
+                const { data: tickets, error: fetchError } = await supabase
+                    .from('tickets')
+                    .select('id')
+                    .limit(1);
+
+                if (fetchError) throw fetchError;
+                if (!tickets.length) {
+                    logEvent({
+                        type: 'Error',
+                        message: 'No tickets found to add response to'
+                    });
+                    return;
+                }
+
+                // Add response
+                const { data, error } = await supabase
+                    .from('ticket_responses')
+                    .insert([{
+                        ticket_id: tickets[0].id,
+                        response: 'Test response at ' + new Date().toLocaleTimeString(),
+                        created_by: (await supabase.auth.getUser()).data.user?.id
+                    }])
+                    .select();
+
+                if (error) throw error;
+                logEvent({
+                    type: 'Manual Action',
+                    message: 'Created test response',
+                    data: data
+                });
+            } catch (error) {
+                logEvent({
+                    type: 'Error',
+                    message: 'Failed to create response',
+                    error: error.message
+                });
+            }
+        };
+
+        // Initialize when page loads
+        initializeRealtime();
+    </script>
+</body>
+</html> 

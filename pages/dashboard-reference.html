@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Dashboard - EduDesk</title>
+    <link rel="stylesheet" href="../css/style-new.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar - Exact Match -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h2>Dashboard</h2>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active">
+                    <i class="fas fa-tachometer-alt"></i>
+                    Dashboard
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="fas fa-user-graduate"></i>
+                    Students
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    Teachers
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="fas fa-users"></i>
+                    Parents
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="fas fa-book"></i>
+                    Library
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="fas fa-calendar-check"></i>
+                    Attendance
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="fas fa-clipboard-list"></i>
+                    Exam
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="fas fa-bed"></i>
+                    Hostel
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="fas fa-user-circle"></i>
+                    Account
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="fas fa-cog"></i>
+                    Settings
+                </a>
+            </nav>
+            
+            <!-- Decorative illustration placeholder -->
+            <div style="position: absolute; bottom: 20px; left: 20px; right: 20px; height: 120px; background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05)); border-radius: 12px; opacity: 0.7;"></div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Top Header -->
+            <div class="top-header">
+                <div class="welcome-section">
+                    <h1>Welcome to Smart</h1>
+                </div>
+                
+                <div class="header-actions">
+                    <div class="search-container">
+                        <i class="fas fa-search"></i>
+                        <input type="text" class="search-input" placeholder="Search">
+                    </div>
+                    
+                    <div class="header-icons">
+                        <button class="icon-btn">
+                            <i class="fas fa-expand"></i>
+                        </button>
+                        <button class="icon-btn">
+                            <i class="fas fa-bell"></i>
+                        </button>
+                        <button class="icon-btn">
+                            <i class="fas fa-user"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Statistics Cards Row -->
+            <div class="stats-row">
+                <div class="stat-card schools">
+                    <div class="stat-icon schools">
+                        <i class="fas fa-school"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>6000</h3>
+                        <p>Schools</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card students">
+                    <div class="stat-icon students">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>24542</h3>
+                        <p>Students</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card teachers">
+                    <div class="stat-icon teachers">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>5000</h3>
+                        <p>Teachers</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card parents">
+                    <div class="stat-icon parents">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>1000</h3>
+                        <p>Parents</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Main Dashboard Grid -->
+            <div class="dashboard-grid">
+                <!-- Left Column -->
+                <div class="left-column">
+                    <!-- Calendar & Attendance -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3>Calendar & Attendance</h3>
+                        </div>
+                        <div class="calendar-container">
+                            <div class="calendar-header">
+                                <button class="calendar-nav">
+                                    <i class="fas fa-chevron-left"></i>
+                                </button>
+                                <div class="calendar-title">02 October, 2019</div>
+                                <button class="calendar-nav">
+                                    <i class="fas fa-chevron-right"></i>
+                                </button>
+                            </div>
+                            
+                            <div class="calendar-grid">
+                                <div class="calendar-day-header">Sun</div>
+                                <div class="calendar-day-header">Mon</div>
+                                <div class="calendar-day-header">Tue</div>
+                                <div class="calendar-day-header">Wed</div>
+                                <div class="calendar-day-header">Thu</div>
+                                <div class="calendar-day-header">Fri</div>
+                                <div class="calendar-day-header">Sat</div>
+                                
+                                <div class="calendar-day other-month"></div>
+                                <div class="calendar-day other-month"></div>
+                                <div class="calendar-day">01</div>
+                                <div class="calendar-day selected">02</div>
+                                <div class="calendar-day">03</div>
+                                <div class="calendar-day">04</div>
+                                <div class="calendar-day">05</div>
+                                
+                                <div class="calendar-day">06</div>
+                                <div class="calendar-day">07</div>
+                                <div class="calendar-day">08</div>
+                                <div class="calendar-day">09</div>
+                                <div class="calendar-day">10</div>
+                                <div class="calendar-day">11</div>
+                                <div class="calendar-day">12</div>
+                                
+                                <div class="calendar-day">13</div>
+                                <div class="calendar-day">14</div>
+                                <div class="calendar-day">15</div>
+                                <div class="calendar-day">16</div>
+                                <div class="calendar-day today">17</div>
+                                <div class="calendar-day">18</div>
+                                <div class="calendar-day">19</div>
+                                
+                                <div class="calendar-day">20</div>
+                                <div class="calendar-day">21</div>
+                                <div class="calendar-day">22</div>
+                                <div class="calendar-day">23</div>
+                                <div class="calendar-day">24</div>
+                                <div class="calendar-day">25</div>
+                                <div class="calendar-day">26</div>
+                                
+                                <div class="calendar-day selected">27</div>
+                                <div class="calendar-day selected">28</div>
+                                <div class="calendar-day selected">29</div>
+                                <div class="calendar-day">30</div>
+                                <div class="calendar-day">31</div>
+                                <div class="calendar-day other-month">01</div>
+                                <div class="calendar-day other-month">02</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Activities Notification -->
+                    <div class="dashboard-card" style="margin-top: 20px;">
+                        <div class="card-header">
+                            <h3>Activities Notification</h3>
+                            <a href="#" class="view-all-btn">View All</a>
+                        </div>
+                        <div class="activities-container">
+                            <div class="activity-item">
+                                <div class="activity-school">St.Xavier School</div>
+                                <div class="activity-date">02 Oct, 2019</div>
+                                <div class="activity-description">We are planning to celebrate Gandhi Jayanti on 2nd October in our school. So it is our humble request to parents and teachers to join us on that occasion.</div>
+                            </div>
+                            
+                            <div class="activity-item">
+                                <div class="activity-school">Podar International School</div>
+                                <div class="activity-date">02 Oct, 2019</div>
+                                <div class="activity-description">We are planning to celebrate Gandhi Jayanti on 2nd October in our school. So it is our humble request to parents and teachers to join us on that occasion.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Column -->
+                <div class="right-column">
+                    <!-- School Performance -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3>School Performance</h3>
+                        </div>
+                        <div class="performance-chart">
+                            <div class="chart-subtitle">All the data in percentage (%)</div>
+                            <div class="chart-bars">
+                                <div class="chart-bar govt"></div>
+                                <div class="chart-bar private"></div>
+                                <div class="chart-bar average"></div>
+                            </div>
+                            <div class="chart-legend">
+                                <div class="legend-item">
+                                    <div class="legend-dot govt"></div>
+                                    <span>Govt. School</span>
+                                    <span style="margin-left: auto;">100</span>
+                                </div>
+                                <div class="legend-item">
+                                    <div class="legend-dot private"></div>
+                                    <span>Private School</span>
+                                    <span style="margin-left: auto;">50</span>
+                                </div>
+                                <div class="legend-item">
+                                    <div class="legend-dot average"></div>
+                                    <span>Average School</span>
+                                    <span style="margin-left: auto;">25</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Top Scorer -->
+                    <div class="dashboard-card" style="margin-top: 20px;">
+                        <div class="card-header">
+                            <h3>Top Scorer</h3>
+                            <select style="border: none; background: none; font-size: 12px; color: #666;">
+                                <option>2018-2019</option>
+                            </select>
+                        </div>
+                        <div class="top-scorer-container">
+                            <div class="scorer-cards">
+                                <div class="scorer-card first">
+                                    <div class="scorer-avatar">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    <div class="scorer-name">Brenden Harris</div>
+                                    <div class="scorer-school">St.Xavier School</div>
+                                    <div class="scorer-percentage">99.90%</div>
+                                    <div class="scorer-rank">1st</div>
+                                </div>
+                                
+                                <div class="scorer-card second">
+                                    <div class="scorer-avatar">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    <div class="scorer-name">Charles James</div>
+                                    <div class="scorer-school">Podar School</div>
+                                    <div class="scorer-percentage">99.76%</div>
+                                    <div class="scorer-rank">2nd</div>
+                                </div>
+                                
+                                <div class="scorer-card third">
+                                    <div class="scorer-avatar">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    <div class="scorer-name">Milka Poser</div>
+                                    <div class="scorer-school">St.Xavier School</div>
+                                    <div class="scorer-percentage">99.50%</div>
+                                    <div class="scorer-rank">3rd</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Schools Fees Structure -->
+                    <div class="dashboard-card" style="margin-top: 20px;">
+                        <div class="card-header">
+                            <h3>Schools Fees Structure</h3>
+                        </div>
+                        <div class="fees-structure">
+                            <div class="chart-subtitle">All the data in percentage (%)</div>
+                            <div class="fees-chart">
+                                <div class="fees-bar"></div>
+                            </div>
+                            <div class="chart-legend">
+                                <div class="legend-item">
+                                    <div class="legend-dot govt"></div>
+                                    <span>Govt. School</span>
+                                    <span style="margin-left: auto;">100</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

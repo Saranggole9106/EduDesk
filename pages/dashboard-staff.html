@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Dashboard - EduDesk</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-graduation-cap"></i>
+                    <h2>EduDesk</h2>
+                </div>
+                <p>Staff Portal</p>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" onclick="showSection('dashboard')">
+                    <i class="fas fa-tachometer-alt"></i>
+                    Dashboard
+                </a>
+                <a href="#" class="nav-item" onclick="showSection('tickets')">
+                    <i class="fas fa-ticket-alt"></i>
+                    All Tickets
+                </a>
+                <a href="#" class="nav-item" onclick="showSection('assigned')">
+                    <i class="fas fa-user-check"></i>
+                    Assigned to Me
+                </a>
+                <a href="#" class="nav-item" onclick="showSection('knowledge-base')">
+                    <i class="fas fa-book"></i>
+                    Knowledge Base
+                </a>
+                <a href="#" class="nav-item" onclick="showSection('reports')">
+                    <i class="fas fa-chart-bar"></i>
+                    Reports
+                </a>
+                <a href="#" class="nav-item" onclick="showSection('profile')">
+                    <i class="fas fa-user"></i>
+                    Profile
+                </a>
+                <a href="#" class="nav-item" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </a>
+            </nav>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <div class="welcome-text">
+                    <h1>Staff Dashboard</h1>
+                    <p>Manage and respond to student tickets</p>
+                </div>
+                
+                <div class="top-actions">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Search tickets...">
+                    </div>
+                    
+                    <button class="notification-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">8</span>
+                    </button>
+                    
+                    <button class="profile-btn">
+                        <i class="fas fa-user"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Dashboard Section -->
+            <div id="dashboard-section" class="content-section active">
+                <!-- Stats Grid -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon pending">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>15</h3>
+                            <p>Pending Tickets</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon assigned">
+                            <i class="fas fa-user-check"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>8</h3>
+                            <p>Assigned to Me</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon resolved">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>42</h3>
+                            <p>Resolved Today</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon rating">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>4.9</h3>
+                            <p>Avg Rating</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Dashboard Grid -->
+                <div class="dashboard-grid">
+                    <!-- Urgent Tickets -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3>Urgent Tickets</h3>
+                            <a href="#" class="view-all-btn" onclick="showSection('tickets')">View All</a>
+                        </div>
+                        
+                        <div class="urgent-tickets">
+                            <div class="urgent-ticket-item">
+                                <div class="ticket-priority urgent">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                </div>
+                                <div class="ticket-info">
+                                    <h4>#TK005 - System Login Error</h4>
+                                    <p>Student: John Doe (STU2024001)</p>
+                                    <span class="ticket-time">30 minutes ago</span>
+                                </div>
+                                <button class="btn-primary btn-sm" onclick="assignTicket('TK005', 'self')">Take</button>
+                            </div>
+                            
+                            <div class="urgent-ticket-item">
+                                <div class="ticket-priority high">
+                                    <i class="fas fa-exclamation"></i>
+                                </div>
+                                <div class="ticket-info">
+                                    <h4>#TK006 - Fee Payment Failed</h4>
+                                    <p>Student: Jane Smith (STU2024002)</p>
+                                    <span class="ticket-time">1 hour ago</span>
+                                </div>
+                                <button class="btn-primary btn-sm" onclick="assignTicket('TK006', 'self')">Take</button>
+                            </div>
+                            
+                            <div class="urgent-ticket-item">
+                                <div class="ticket-priority high">
+                                    <i class="fas fa-exclamation"></i>
+                                </div>
+                                <div class="ticket-info">
+                                    <h4>#TK007 - Exam Registration Issue</h4>
+                                    <p>Student: Mike Johnson (STU2024003)</p>
+                                    <span class="ticket-time">2 hours ago</span>
+                                </div>
+                                <button class="btn-primary btn-sm" onclick="assignTicket('TK007', 'self')">Take</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- My Performance -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3>My Performance</h3>
+                        </div>
+                        
+                        <div class="performance-metrics">
+                            <div class="metric-item">
+                                <div class="metric-icon">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div class="metric-info">
+                                    <h4>2.5 hrs</h4>
+                                    <p>Avg Response Time</p>
+                                </div>
+                            </div>
+                            
+                            <div class="metric-item">
+                                <div class="metric-icon">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <div class="metric-info">
+                                    <h4>95%</h4>
+                                    <p>Resolution Rate</p>
+                                </div>
+                            </div>
+                            
+                            <div class="metric-item">
+                                <div class="metric-icon">
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <div class="metric-info">
+                                    <h4>4.9/5</h4>
+                                    <p>Customer Rating</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Recent Activity -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h3>Recent Activity</h3>
+                    </div>
+                    
+                    <div class="activity-timeline">
+                        <div class="activity-item">
+                            <div class="activity-icon resolved">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div class="activity-content">
+                                <h4>Resolved ticket #TK004</h4>
+                                <p>Document verification issue for student Sarah Wilson</p>
+                                <span class="activity-time">15 minutes ago</span>
+                            </div>
+                        </div>
+                        
+                        <div class="activity-item">
+                            <div class="activity-icon responded">
+                                <i class="fas fa-reply"></i>
+                            </div>
+                            <div class="activity-content">
+                                <h4>Responded to ticket #TK003</h4>
+                                <p>Provided fee payment instructions to student</p>
+                                <span class="activity-time">45 minutes ago</span>
+                            </div>
+                        </div>
+                        
+                        <div class="activity-item">
+                            <div class="activity-icon assigned">
+                                <i class="fas fa-user-plus"></i>
+                            </div>
+                            <div class="activity-content">
+                                <h4>Assigned ticket #TK002</h4>
+                                <p>Exam hall ticket issue assigned to IT department</p>
+                                <span class="activity-time">1 hour ago</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- All Tickets Section -->
+            <div id="tickets-section" class="content-section">
+                <div class="section-header">
+                    <h2>All Tickets</h2>
+                    <div class="header-actions">
+                        <select class="filter-select">
+                            <option value="all">All Departments</option>
+                            <option value="admissions">Admissions</option>
+                            <option value="fees">Fees</option>
+                            <option value="examinations">Examinations</option>
+                            <option value="it">IT Support</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="tickets-filter">
+                    <button class="filter-btn active" onclick="filterTickets('all')">All</button>
+                    <button class="filter-btn" onclick="filterTickets('pending')">Pending</button>
+                    <button class="filter-btn" onclick="filterTickets('in-progress')">In Progress</button>
+                    <button class="filter-btn" onclick="filterTickets('resolved')">Resolved</button>
+                    <button class="filter-btn" onclick="filterTickets('urgent')">Urgent</button>
+                </div>
+                
+                <div class="tickets-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Ticket ID</th>
+                                <th>Student</th>
+                                <th>Subject</th>
+                                <th>Category</th>
+                                <th>Priority</th>
+                                <th>Status</th>
+                                <th>Created</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-status="pending" data-priority="urgent">
+                                <td>#TK005</td>
+                                <td>John Doe<br><small>STU2024001</small></td>
+                                <td>System Login Error</td>
+                                <td>IT Support</td>
+                                <td><span class="priority urgent">Urgent</span></td>
+                                <td><span class="status pending">Pending</span></td>
+                                <td>30 min ago</td>
+                                <td>
+                                    <button class="btn-sm btn-primary" onclick="assignTicket('TK005', 'self')">Take</button>
+                                    <button class="btn-sm btn-secondary" onclick="viewTicket('TK005')">View</button>
+                                </td>
+                            </tr>
+                            <tr data-status="in-progress" data-priority="high">
+                                <td>#TK003</td>
+                                <td>Mike Wilson<br><small>STU2024003</small></td>
+                                <td>Fee Payment Issue</td>
+                                <td>Fees</td>
+                                <td><span class="priority high">High</span></td>
+                                <td><span class="status in-progress">In Progress</span></td>
+                                <td>2 hours ago</td>
+                                <td>
+                                    <button class="btn-sm btn-success" onclick="respondToTicket('TK003')">Respond</button>
+                                    <button class="btn-sm btn-secondary" onclick="viewTicket('TK003')">View</button>
+                                </td>
+                            </tr>
+                            <tr data-status="pending" data-priority="medium">
+                                <td>#TK008</td>
+                                <td>Sarah Davis<br><small>STU2024004</small></td>
+                                <td>Library Book Issue</td>
+                                <td>Library</td>
+                                <td><span class="priority medium">Medium</span></td>
+                                <td><span class="status pending">Pending</span></td>
+                                <td>3 hours ago</td>
+                                <td>
+                                    <button class="btn-sm btn-primary" onclick="assignTicket('TK008', 'self')">Take</button>
+                                    <button class="btn-sm btn-secondary" onclick="viewTicket('TK008')">View</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Assigned Tickets Section -->
+            <div id="assigned-section" class="content-section">
+                <div class="section-header">
+                    <h2>Tickets Assigned to Me</h2>
+                </div>
+                
+                <div class="assigned-tickets">
+                    <div class="ticket-card assigned-ticket" data-ticket-id="TK001">
+                        <div class="ticket-header">
+                            <h3>#TK001 - Fee Payment Issue</h3>
+                            <span class="ticket-status in-progress">In Progress</span>
+                        </div>
+                        <div class="ticket-student">
+                            <strong>Student:</strong> Alice Johnson (STU2024001)
+                        </div>
+                        <p class="ticket-description">Unable to process online fee payment for this semester. Getting error message during transaction.</p>
+                        <div class="ticket-meta">
+                            <span><i class="fas fa-calendar"></i> Created: 2 hours ago</span>
+                            <span><i class="fas fa-tag"></i> Category: Fees</span>
+                            <span><i class="fas fa-exclamation"></i> Priority: High</span>
+                        </div>
+                        <div class="ticket-response">
+                            <textarea placeholder="Type your response here..." rows="3"></textarea>
+                            <div class="response-actions">
+                                <select class="status-select">
+                                    <option value="in-progress">In Progress</option>
+                                    <option value="resolved">Resolved</option>
+                                    <option value="escalated">Escalate</option>
+                                </select>
+                                <button class="btn-primary" onclick="submitResponse('TK001')">Send Response</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="ticket-card assigned-ticket" data-ticket-id="TK002">
+                        <div class="ticket-header">
+                            <h3>#TK002 - Exam Hall Ticket</h3>
+                            <span class="ticket-status in-progress">In Progress</span>
+                        </div>
+                        <div class="ticket-student">
+                            <strong>Student:</strong> Bob Smith (STU2024002)
+                        </div>
+                        <p class="ticket-description">Cannot download hall ticket for upcoming examination. Link is not working properly.</p>
+                        <div class="ticket-meta">
+                            <span><i class="fas fa-calendar"></i> Created: 1 day ago</span>
+                            <span><i class="fas fa-tag"></i> Category: Examinations</span>
+                            <span><i class="fas fa-exclamation"></i> Priority: Medium</span>
+                        </div>
+                        <div class="ticket-response">
+                            <textarea placeholder="Type your response here..." rows="3"></textarea>
+                            <div class="response-actions">
+                                <select class="status-select">
+                                    <option value="in-progress">In Progress</option>
+                                    <option value="resolved">Resolved</option>
+                                    <option value="escalated">Escalate</option>
+                                </select>
+                                <button class="btn-primary" onclick="submitResponse('TK002')">Send Response</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Knowledge Base Section -->
+            <div id="knowledge-base-section" class="content-section">
+                <div class="section-header">
+                    <h2>Knowledge Base</h2>
+                    <button class="btn-primary" onclick="addKnowledgeArticle()">
+                        <i class="fas fa-plus"></i>
+                        Add Article
+                    </button>
+                </div>
+                
+                <div class="knowledge-search">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Search knowledge base...">
+                    </div>
+                </div>
+                
+                <div class="knowledge-categories">
+                    <button class="category-btn active" onclick="filterKnowledge('all')">All</button>
+                    <button class="category-btn" onclick="filterKnowledge('admissions')">Admissions</button>
+                    <button class="category-btn" onclick="filterKnowledge('fees')">Fees</button>
+                    <button class="category-btn" onclick="filterKnowledge('examinations')">Examinations</button>
+                    <button class="category-btn" onclick="filterKnowledge('technical')">Technical</button>
+                </div>
+                
+                <div class="knowledge-articles">
+                    <div class="knowledge-card" data-category="fees">
+                        <div class="knowledge-header">
+                            <h3>Online Fee Payment Process</h3>
+                            <span class="knowledge-category">Fees</span>
+                        </div>
+                        <p>Step-by-step guide for students to pay fees online through the portal.</p>
+                        <div class="knowledge-meta">
+                            <span><i class="fas fa-eye"></i> 245 views</span>
+                            <span><i class="fas fa-thumbs-up"></i> 18 helpful</span>
+                            <span><i class="fas fa-calendar"></i> Updated 2 days ago</span>
+                        </div>
+                        <div class="knowledge-actions">
+                            <button class="btn-secondary">Edit</button>
+                            <button class="btn-primary">View</button>
+                        </div>
+                    </div>
+                    
+                    <div class="knowledge-card" data-category="examinations">
+                        <div class="knowledge-header">
+                            <h3>Hall Ticket Download Issues</h3>
+                            <span class="knowledge-category">Examinations</span>
+                        </div>
+                        <p>Common issues and solutions for hall ticket download problems.</p>
+                        <div class="knowledge-meta">
+                            <span><i class="fas fa-eye"></i> 189 views</span>
+                            <span><i class="fas fa-thumbs-up"></i> 15 helpful</span>
+                            <span><i class="fas fa-calendar"></i> Updated 1 week ago</span>
+                        </div>
+                        <div class="knowledge-actions">
+                            <button class="btn-secondary">Edit</button>
+                            <button class="btn-primary">View</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Reports Section -->
+            <div id="reports-section" class="content-section">
+                <div class="section-header">
+                    <h2>Reports & Analytics</h2>
+                </div>
+                
+                <div class="reports-grid">
+                    <div class="report-card">
+                        <h3>Ticket Resolution Time</h3>
+                        <canvas id="resolutionTimeChart" width="400" height="200"></canvas>
+                    </div>
+                    
+                    <div class="report-card">
+                        <h3>Category Distribution</h3>
+                        <canvas id="categoryChart" width="400" height="200"></canvas>
+                    </div>
+                </div>
+                
+                <div class="report-actions">
+                    <button class="btn-primary" onclick="generateReport('weekly')">
+                        <i class="fas fa-download"></i>
+                        Weekly Report
+                    </button>
+                    <button class="btn-primary" onclick="generateReport('monthly')">
+                        <i class="fas fa-download"></i>
+                        Monthly Report
+                    </button>
+                    <button class="btn-secondary" onclick="exportData('csv')">
+                        <i class="fas fa-file-csv"></i>
+                        Export CSV
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Profile Section -->
+            <div id="profile-section" class="content-section">
+                <div class="section-header">
+                    <h2>My Profile</h2>
+                </div>
+                
+                <div class="profile-content">
+                    <div class="profile-card">
+                        <div class="profile-header">
+                            <div class="profile-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="profile-info">
+                                <h3>Sarah Johnson</h3>
+                                <p>Staff ID: STF2024001</p>
+                                <p>Department: Student Services</p>
+                            </div>
+                        </div>
+                        
+                        <div class="profile-details">
+                            <div class="detail-group">
+                                <label>Email:</label>
+                                <span>sarah.johnson@staff.edu</span>
+                            </div>
+                            
+                            <div class="detail-group">
+                                <label>Phone:</label>
+                                <span>+91 9876543210</span>
+                            </div>
+                            
+                            <div class="detail-group">
+                                <label>Department:</label>
+                                <span>Student Services</span>
+                            </div>
+                            
+                            <div class="detail-group">
+                                <label>Role:</label>
+                                <span>Support Staff</span>
+                            </div>
+                        </div>
+                        
+                        <div class="profile-actions">
+                            <button class="btn-primary">Edit Profile</button>
+                            <button class="btn-secondary">Change Password</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="../js/main.js"></script>
+    <script src="../js/dashboard.js"></script>
+    <script src="../js/staff.js"></script>
+</body>
+</html>
+
