@@ -6,6 +6,7 @@
     <title>EduDesk - Student Helpdesk System</title>
     <link rel="stylesheet" href="css/style.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
     <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 </head>
 <body>
@@ -20,7 +21,7 @@
             </div>
             
             <div class="role-cards">
-                <div class="role-card" onclick="selectRole('student')">
+                <div class="role-card" data-role="student">
                     <div class="role-icon">
                         <i class="fas fa-user-graduate"></i>
                     </div>
@@ -28,7 +29,7 @@
                     <p>Submit tickets, track issues, and get help</p>
                 </div>
                 
-                <div class="role-card" onclick="selectRole('staff')">
+                <div class="role-card" data-role="staff">
                     <div class="role-icon">
                         <i class="fas fa-chalkboard-teacher"></i>
                     </div>
@@ -36,7 +37,7 @@
                     <p>Manage tickets, respond to queries, and assist students</p>
                 </div>
                 
-                <div class="role-card" onclick="selectRole('admin')">
+                <div class="role-card" data-role="admin">
                     <div class="role-icon">
                         <i class="fas fa-user-shield"></i>
                     </div>
@@ -54,16 +55,23 @@
     <script type="module">
         import { BASE_URL } from './js/config.js';
         
-        window.selectRole = function(role) {
-            localStorage.setItem('selectedRole', role);
-            
-            const roleCards = document.querySelectorAll('.role-card');
-            roleCards.forEach(card => card.style.transform = 'scale(0.95)');
-            
-            setTimeout(() => {
-                window.location.href = `${BASE_URL}/pages/login.html?role=${role}`;
-            }, 200);
-        };
+        // Add click event listeners to role cards
+        document.querySelectorAll('.role-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const role = this.dataset.role;
+                localStorage.setItem('selectedRole', role);
+                
+                // Add visual feedback
+                document.querySelectorAll('.role-card').forEach(c => {
+                    c.style.transform = 'scale(0.95)';
+                });
+                
+                // Navigate to login page
+                setTimeout(() => {
+                    window.location.href = `${BASE_URL}/pages/login.html?role=${role}`;
+                }, 200);
+            });
+        });
     </script>
 </body>
 </html>
